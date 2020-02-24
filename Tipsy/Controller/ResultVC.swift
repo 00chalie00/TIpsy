@@ -10,9 +10,28 @@ import UIKit
 
 class ResultVC: UIViewController {
 
+    @IBOutlet weak var tip: UILabel!
+    @IBOutlet weak var subLB: UILabel!
+    
+    
+    var resultTip: String?
+    var resultSplit: String?
+    var resultSelTip: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configure()
 
     }
-
+    
+    
+    func configure() {
+        self.tip.text = resultTip
+    }
+    
+    @IBAction func recalculatePressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }

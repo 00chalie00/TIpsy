@@ -6,9 +6,9 @@
 //  Copyright © 2020 The App Brewery. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-struct Calculate {
+struct CalculateTip {
     
     var tip: TIP?
     
@@ -31,19 +31,17 @@ struct Calculate {
         return personTip
     }
     
-    func calculatePersonTip(total: String, selTip: String, person: String) -> String {
-
-        guard let total = Float(total) else { return "0.0" }
-        guard let seltip = Float(tip?.inputTip ?? "0.0") else { return "0"}
+    mutating func calculatePersonTip(total: String, selTip: String, person: String) {
+        
+        guard let total = Float(total) else { return }
+        guard let seltip = Float(tip?.inputTip ?? "0.0") else { return }
         let rawPerson = tip?.inputSplit ?? 0
         let person = Float(rawPerson)
         
         let resultCal = total * (1 + seltip) / person
-        let fininalResult = String(format: "%.2f", resultCal)
+        let seltipInt = Int(selTip)
         
-        let retunResult = "total \(fininalResult)"
-        print(retunResult)
-        return retunResult
+        tip =  TIP(inputTip: selTip, inputSplit: seltipInt, personalTip: resultCal)
     }
     
 }
