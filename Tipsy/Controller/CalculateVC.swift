@@ -24,6 +24,23 @@ class CalculateVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+
+        configure()
+    }
+    
+    func configure() {
+        totalLb.text = ""
+        splitLb.text = "2"
+        
+        zeroBtn.isSelected = false
+        tenBtn.isSelected = true
+        twenBtn.isSelected = false
+    }
+    
 
     @IBAction func tipBTNPressed(_ sender: UIButton) {
         totalLb.endEditing(true)
@@ -33,17 +50,19 @@ class CalculateVC: UIViewController {
         twenBtn.isSelected = false
         
         sender.isSelected = true
+        let currentTitle = sender.currentTitle
+        let titleMinusPercent = String(currentTitle!.dropLast())
+        step = Int(titleMinusPercent)!
         
     }
     
     @IBAction func stepperBTnPressed(_ sender: UIStepper) {
         splitLb.text = String(format: "%.0f", sender.value)
-        step = Int(sender.value)
     }
     
     
     @IBAction func calculateBTnPressed(_ sender: UIButton) {
-        calculateTip.calculatePersonTip(total: totalLb.text!, selTip: splitLb.text!, person: String(step))
+        calculateTip.calculatePersonTip(total: totalLb.text!, selTip: String(step), person: splitLb.text!)
         
         performSegue(withIdentifier: "gotoResultVC", sender: self)
     }
@@ -54,7 +73,7 @@ class CalculateVC: UIViewController {
             resultVC.resultSelTip = calculateTip.getTip()
             resultVC.resultSplit = String(format: "%.0f", calculateTip.getSplit())
             resultVC.resultTip = String(format: "%.2f", calculateTip.getPersonTIp())
-            print(resultVC.resultTip)
+            print(resultVC.resultTip!)
         }
     }
     

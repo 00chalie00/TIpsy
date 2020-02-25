@@ -34,12 +34,13 @@ struct CalculateTip {
     mutating func calculatePersonTip(total: String, selTip: String, person: String) {
         
         guard let total = Float(total) else { return }
-        guard let seltip = Float(tip?.inputTip ?? "0.0") else { return }
-        let rawPerson = tip?.inputSplit ?? 0
-        let person = Float(rawPerson)
+        guard let seltip = Float(selTip) else { return }
+        guard let personreturn = Float(person) else { return }
         
-        let resultCal = total * (1 + seltip) / person
+        let resultCal = total * (seltip / 100) / personreturn
         let seltipInt = Int(selTip)
+        
+        print(total, selTip, personreturn, resultCal)
         
         tip =  TIP(inputTip: selTip, inputSplit: seltipInt, personalTip: resultCal)
     }
